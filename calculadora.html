@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="formulas.js">
+    
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="display">
+            <input id="screen" type="text" placeholder="0" readonly>
+        </div>
+        
+        <div class="btns">
+            <div class="row">
+                <button onclick="backspace()">CE</button>
+                <button class="btn">√</button>
+                <button class="btn">(</button>
+                <button class="btn">)</button>
+                <button class="btn">%</button>
+                
+                <button id="ac" onclick="clearScreen()">AC</button>
+            </div>
+
+            <div class="row">
+                <button onclick="insert('sin')">sin</button>
+                <button onclick="insert('pi')">𝝅</button>
+                <button class="btn">7</button>
+                <button class="btn">8</button>
+                <button class="btn">9</button>
+                <button class="btn">÷</button>
+            </div>
+
+            <div class="row">
+                <button onclick="insert('tan')">tan</button>
+                <button onclick="insert('pi')">𝝅</button>
+                <button class="btn">1</button>
+                <button class="btn">2</button>
+                <button class="btn">3</button>
+                <button class="btn">-</button>
+            </div>
+            <div class="row">
+                <button onclick="insert('tan')">tan</button>
+                <button onclick="insert('pi')">𝝅</button>
+                <button class="btn">4</button>
+                <button class="btn">5</button>
+                <button class="btn">6</button>
+                <button class="btn">*</button>
+            </div>
+
+            <div class="row">
+                <button onclick="e()">e</button>
+                <button onclick="pow()">x<sup>y</sup></button>
+                <button class="btn">0</button>
+                <button class="btn">.</button>
+                <button id="eval" onclick="calculate()">=</button>
+                <button class="btn">+</button>
+            </div>
+        </div>
+    </div>
+
+   
+
+     <!-- JAVA NERVOSER -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+    var screen = document.querySelector('#screen');
+    var btns = document.querySelectorAll('.btn');
+
+    for (let btn of btns) {
+        btn.addEventListener('click', (e) => {
+            let btntext = e.target.innerText;
+
+           
+            if (btntext === 'x') {
+                btntext = '*';
+            }
+
+            if (btntext === '÷') {
+                btntext = '/';
+            }
+
+            screen.value += btntext;
+        });
+    }
+
+    function sin() {
+        screen.value = Math.sin(parseFloat(screen.value));
+    }
+
+    function cos() {
+        screen.value = Math.cos(parseFloat(screen.value));
+    }
+
+    function tan() {
+        screen.value = Math.tan(parseFloat(screen.value));
+    }
+
+    function pow() {
+        let [base, exp] = screen.value.split(',').map(Number);
+        screen.value = Math.pow(base, exp);
+    }
+
+    function sqrt() {
+        let value = parseFloat(screen.value);
+        screen.value = Math.sqrt(value);
+    }
+
+    function log() {
+        screen.value = Math.log(parseFloat(screen.value));
+    }
+
+    function pi() {
+        screen.value = Math.PI;
+    }
+
+    function e() {
+        screen.value = Math.E;
+    }
+
+    function fact() {
+        let num = parseInt(screen.value, 10);
+        let f = 1;
+        for (let i = 1; i <= num; i++) {
+            f *= i;
+        }
+        screen.value = f;
+    }
+
+    function backspace() {
+        screen.value = screen.value.slice(0, -1);
+    }
+
+    function clearScreen() {
+        screen.value = '';
+    }
+
+    function insert(value) {
+        screen.value += value;
+    }
+
+    function calculate() {
+        try {
+            screen.value = eval(screen.value.replace(/%/g, '/100'));
+        } catch {
+            screen.value = 'Error';
+        }
+    }
+    window.sin = sin;
+    window.cos = cos;
+    window.tan = tan;
+    window.pow = pow;
+    window.sqrt = sqrt;
+    window.log = log;
+    window.pi = pi;
+    window.e = e;
+    window.fact = fact;
+    window.backspace = backspace;
+    window.clearScreen = clearScreen;
+    window.insert = insert;
+    window.calculate = calculate;
+});
+    </script>
+
+    
+
+</body>
+</html>
